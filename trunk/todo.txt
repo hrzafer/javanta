@@ -1,0 +1,9 @@
+====== To Do list ======= 27.10.2010
+
+- Netbeans ve Eclipste test edelim, ekleme de çalýþtýrmada vs. problem var mý?
+	- her ikisi içinde nasýl eklenip kullanýlacaðýna dair küçük videolar hazýrlayalým.
+	- Netbeans'i tavsiye edelim.
+- IO sýnýfýnýn tanýtan makaleler yazalým.
+- String sýnýfýný yazalým biraz Türkçe'ye özgü þeyler ekleyelim.
+
+====== Done List ========
