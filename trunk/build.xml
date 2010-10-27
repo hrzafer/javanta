@@ -10,6 +10,30 @@
 <project name="javanta" default="default" basedir=".">
     <description>Builds, tests, and runs the project javanta.</description>
     <import file="nbproject/build-impl.xml"/>
+	
+	    <target name="-pre-init">
+        <property file="version.properties"/>
+        <property name="dist.jar" value="dist/${ant.project.name}-${project.version}.jar"/>
+    </target>
+
+    <target description="bundle sources in a jar" name="package-sources">
+        <jar basedir="src" destfile="build/release/${ant.project.name}-${project.version}-sources.jar"/>
+    </target>
+
+
+    <target name="package_for_release" depends="jar,javadoc, package-sources">
+        <mkdir dir="build/release"/>
+        <copy file="${dist.jar}" todir="build/release/"/>
+        <copy file="licence.txt" todir="build/release/"/>
+        <copy file="beni_oku.txt" todir="build/release/"/>
+        <mkdir dir="build/release/doc"/>
+        <copy todir="build/release/doc">
+            <fileset dir="dist/javadoc" includes="**"/>
+        </copy>
+        
+        <zip basedir="build/release/" includes="**" destfile="dist/${ant.project.name}-${project.version}.zip"/>
+    </target>
+	
     <!--
 
     There exist several targets which are by default empty and which can be 
