@@ -1,0 +1,4 @@
+Bu dosya 
+IO.write("örnek.txt", "Bu dosya ... "); 
+gibi bir komut ile oluşturulmuştur.
+ test/Main.java dosyasında örnek kodları görebilirsiniz.
