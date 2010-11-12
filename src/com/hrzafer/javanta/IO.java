@@ -6,14 +6,19 @@
 package com.hrzafer.javanta;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -107,6 +112,20 @@ public class IO {
     }
 
     /**
+     * String'i dosya gibi okuyabilmek için kullanılabilecek bir metod.
+     */
+    public static InputStream toInputStream(String source){
+        InputStream stream;
+        try {
+            stream = new ByteArrayInputStream(source.getBytes("UTF-8"));
+            return stream;
+        } catch (UnsupportedEncodingException ex) {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+    /**
      * Okunan dosyayı exception handling ile uğraşmadan kapatmak için.
      */
     private static void closeQuietly(Reader file) {
@@ -132,4 +151,6 @@ public class IO {
             throw new RuntimeException(ex);
         }
     }
+
+    
 }
