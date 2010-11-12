@@ -11,7 +11,7 @@
     <description>Builds, tests, and runs the project javanta.</description>
     <import file="nbproject/build-impl.xml"/>
 	
-	    <target name="-pre-init">
+    <target name="-pre-init">
         <property file="version.properties"/>
         <property name="dist.jar" value="dist/${ant.project.name}-${project.version}.jar"/>
     </target>

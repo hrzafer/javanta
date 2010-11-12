@@ -27,7 +27,8 @@ public class Main {
     }
 
     public static void testGUI(){
-        GUI.setLookandFeel("deneme", null);
+
+        GUI.messageBox("deneme", "Bu bir denemedir");
     }
 
     public static void main(String[] args) {
