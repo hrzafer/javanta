@@ -1,6 +1,7 @@
 
 import com.hrzafer.javanta.GUI;
 import com.hrzafer.javanta.IO;
+import java.io.File;
 
 /*
  * To change this template, choose Tools | Templates
@@ -26,6 +27,15 @@ public class Main {
                 + "\n test/Main.java dosyasında örnek kodları görebilirsiniz.");
     }
 
+    public static void copy(String src, String dest){
+        File directory = new File(src);
+        String[] files = directory.list();
+
+        for(String file : files){
+            IO.copy(src + "/" + file, dest + "/"+ file);
+        }
+    }
+
     public static void testGUI(){
 
         GUI.messageBox("deneme", "Bu bir denemedir");
@@ -33,7 +43,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        testGUI();
+        //testGUI();
+
+        copy("C:/Documents and Settings/Administrator/Desktop/src", "C:/Documents and Settings/Administrator/Desktop/dest");
         
     }
 
