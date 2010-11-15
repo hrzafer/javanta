@@ -2,23 +2,23 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hrzafer.javanta;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
+import java.io.Closeable;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,6 +27,8 @@ import java.util.logging.Logger;
  *
  */
 public class IO {
+
+    private static final int BUFFER = 8192;
 
     /**
      * Bir dosyayı okuyup bütünüyle string olarak döndürür.
@@ -46,6 +48,36 @@ public class IO {
         }
     }
 
+    public static void copy(String from, String to) {
+
+
+        File source = new File(from);
+        File target = new File(to);
+        FileChannel in = null;
+        FileChannel out = null;
+
+        try {
+            in = new FileInputStream(source).getChannel();
+            out = new FileOutputStream(target).getChannel();
+
+            ByteBuffer buffer = ByteBuffer.allocateDirect(BUFFER);
+            while (in.read(buffer) != -1) {
+                buffer.flip();
+
+                while (buffer.hasRemaining()) {
+                    out.write(buffer);
+                }
+
+                buffer.clear();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            close(in);
+            close(out);
+        }
+    }
+
     /**
      * Bir String'i bütünüyle dosyaya yazar.
      */
@@ -57,7 +89,7 @@ public class IO {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         } finally {
-            closeQuietly(writer);
+            close(writer);
         }
     }
 
@@ -107,14 +139,14 @@ public class IO {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         } finally {
-            closeQuietly(writer);
+            close(writer);
         }
     }
 
     /**
      * String'i dosya gibi okuyabilmek için kullanılabilecek bir metod.
      */
-    public static InputStream toInputStream(String source){
+    public static InputStream toInputStream(String source) {
         InputStream stream;
         try {
             stream = new ByteArrayInputStream(source.getBytes("UTF-8"));
@@ -122,35 +154,18 @@ public class IO {
         } catch (UnsupportedEncodingException ex) {
             throw new RuntimeException(ex);
         }
-
     }
 
     /**
-     * Okunan dosyayı exception handling ile uğraşmadan kapatmak için.
+     * Dosyayı exception handling ile uğraşmadan kapatmak için.
      */
-    private static void closeQuietly(Reader file) {
-        try {
-            if (file != null) {
-                file.close();
+    private static void close(Closeable closable) {
+        if (closable != null) {
+            try {
+                closable.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-    }
-
-    /**
-     * Yazılan dosyayı exception handling ile uğraşmadan kapatmak için.
-     */
-    private static void closeQuietly(Writer file) {
-        try {
-            if (file != null) {
-                file.close();
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
         }
     }
-
-    
 }

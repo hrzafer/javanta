@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.hrzafer.javanta;
 
 import javax.swing.JFrame;
@@ -16,10 +15,17 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author hrzafer
  */
 public class GUI {
-     /*
+    /*
      * Pencerenin (JFrame frame) Look and Feel'ini değiştirir. (String laf)
      */
-     public static void setLookandFeel(String laf, JFrame frame) {
+    
+    public static final String NIMBUS = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
+    public static final String METAL = "javax.swing.plaf.metal.MetalLookAndFeel";
+    public static final String WINDOWS = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+    public static final String MOTIF = "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
+    public static final String SYSTEM = UIManager.getSystemLookAndFeelClassName();
+   
+    public static void setLookandFeel(String laf, JFrame frame) {
         try {
             UIManager.setLookAndFeel(laf);
         } catch (UnsupportedLookAndFeelException e) {
@@ -41,5 +47,4 @@ public class GUI {
     public static void messageBox(String message, String title) {
         JOptionPane.showConfirmDialog(null, message, title, JOptionPane.PLAIN_MESSAGE);
     }
-
 }
