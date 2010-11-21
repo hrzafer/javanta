@@ -29,10 +29,10 @@ public class Main {
 
     public static void copy(String src, String dest){
         File directory = new File(src);
-        String[] files = directory.list();
+        File[] files = directory.listFiles();
 
-        for(String file : files){
-            IO.copy(src + "/" + file, dest + "/"+ file);
+        for(File file : files){
+            IO.copy(file, new File(dest + "/" + file.getName()));
         }
     }
 

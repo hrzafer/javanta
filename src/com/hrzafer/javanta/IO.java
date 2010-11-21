@@ -48,11 +48,10 @@ public class IO {
         }
     }
 
-    public static void copy(String from, String to) {
-
-
-        File source = new File(from);
-        File target = new File(to);
+    /**
+     * kaynak(source) dosyayı hedef(target) dosyaya kopyalar
+     */
+    public static void copy(File source, File target) {
         FileChannel in = null;
         FileChannel out = null;
 
@@ -76,6 +75,15 @@ public class IO {
             close(in);
             close(out);
         }
+    }
+
+    /**
+     * kaynaktaki (from) dosyayı hedefe(to) dosyaya kopyalar.
+     */
+    public static void copy(String from, String to) {
+        File source = new File(from);
+        File target = new File(to);
+        copy(source,target);
     }
 
     /**
