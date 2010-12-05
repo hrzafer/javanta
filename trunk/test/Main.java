@@ -1,7 +1,9 @@
 
 import com.hrzafer.javanta.GUI;
 import com.hrzafer.javanta.IO;
+import com.hrzafer.javanta.STR;
 import java.io.File;
+import java.util.Locale;
 
 /*
  * To change this template, choose Tools | Templates
@@ -41,12 +43,15 @@ public class Main {
         GUI.messageBox("deneme", "Bu bir denemedir");
     }
 
+    public static void testSTR(){
+        String str = IO.read("test.txt");
+        System.out.println(STR.toNonTurkishLowerCase(str));
+        
+    }
+
     public static void main(String[] args) {
 
-        //testGUI();
-
-        copy("C:/Documents and Settings/Administrator/Desktop/src", "C:/Documents and Settings/Administrator/Desktop/dest");
-        
+        testSTR();
     }
 
 }
