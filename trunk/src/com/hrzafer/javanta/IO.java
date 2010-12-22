@@ -4,6 +4,7 @@
  */
 package com.hrzafer.javanta;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
@@ -14,9 +15,13 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,22 +36,45 @@ public class IO {
     private static final int BUFFER = 8192;
 
     /**
-     * Bir dosyayı okuyup bütünüyle string olarak döndürür.
+     * Bir dosyayı okuyup bütünüyle string olarak döndürür. 
+     * Dosya Unicode biçiminde ise sorunsuz çalışır. Aksi halde Türkçe karakterlerde 
+     * sorun yaşamamak için (Dosya Türkçe karakterler içeriyorsa ve Unicode biçiminde değilse):
+     * read("beni_oku.txt", "ISO-8859-9") şeklinde kullanılmalıdır
+     * <br><br>Not: Yine de Türkçe karakter içeren dosyalarınızı her zaman unicode biçiminde kaydetmeniz tavsiye edilir.
      */
-    public static String read(String filePath) {
+
+    public static String read(String file){
+        return read(file, "UTF-8");
+    }
+    
+
+    /**
+     * Bir dosyayı okuyup bütünüyle string olarak döndürür.
+     * Türkçe karakter içeren ANSI biçiminde dosyalar için: read("beni_oku.txt", "ISO-8859-9") şeklinde çağırılması tavsiye edilir
+     * Kaynak: http://stackoverflow.com/questions/326390/how-to-create-a-java-string-from-the-contents-of-a-file/326440#326440
+     */
+
+    
+    public static String read(String file, String encoding){
+        // No real need to close the BufferedReader/InputStreamReader
+        // as they're only wrapping the stream
         try {
-            Scanner scanner = new Scanner(new File(filePath));
-            StringBuilder stringBuilder = new StringBuilder();
-            while (scanner.hasNextLine()) {
-                stringBuilder.append(scanner.nextLine());
-                stringBuilder.append("\n");
+            FileInputStream stream = new FileInputStream(file);
+            Reader reader = new BufferedReader(new InputStreamReader(stream, Charset.forName(encoding)));
+            StringBuilder builder = new StringBuilder();
+            char[] buffer = new char[8192];
+            int read;
+            while ((read = reader.read(buffer, 0, buffer.length)) > 0) {
+                builder.append(buffer, 0, read);
             }
-            scanner.close();
-            return stringBuilder.toString();
-        } catch (FileNotFoundException ex) {
+            return builder.toString();
+        }
+        catch(IOException ex){
             throw new RuntimeException(ex);
         }
     }
+
+   
 
     /**
      * kaynak(source) dosyayı hedef(target) dosyaya kopyalar
@@ -69,8 +97,8 @@ public class IO {
 
                 buffer.clear();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         } finally {
             close(in);
             close(out);
@@ -83,7 +111,7 @@ public class IO {
     public static void copy(String from, String to) {
         File source = new File(from);
         File target = new File(to);
-        copy(source,target);
+        copy(source, target);
     }
 
     /**
@@ -104,7 +132,7 @@ public class IO {
     /**
      * Bir dosyadaki kelimeleri liste (ArrayList) olarak döndürür.
      */
-    public static ArrayList<String> getWords(String filePath) {
+    public static ArrayList<String> readWords(String filePath) {
         Scanner scanner = null;
         ArrayList<String> words = new ArrayList<String>();
         scanner = new Scanner(read(filePath));
@@ -119,7 +147,7 @@ public class IO {
     /**
      * Bir dosyadaki satırları liste (ArrayList) olarak döndürür.
      */
-    public static ArrayList<String> getLines(String filePath) {
+    public static ArrayList<String> readLines(String filePath) {
         Scanner scanner = null;
         ArrayList<String> lines = new ArrayList<String>();
         try {
@@ -171,8 +199,8 @@ public class IO {
         if (closable != null) {
             try {
                 closable.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
         }
     }
