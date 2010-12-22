@@ -1,10 +1,18 @@
 ====== To Do list ======= 27.10.2010
 
-- Netbeans ve Eclipste test edelim, ekleme de çalýþtýrmada vs. problem var mý?
-	- her ikisi içinde nasýl eklenip kullanýlacaðýna dair küçük videolar hazýrlayalým.
-	- Netbeans'i tavsiye edelim.
-- IO sýnýfýnýn tanýtan makaleler yazalým.
-- String sýnýfýný yazalým biraz Türkçe'ye özgü þeyler ekleyelim.
-- DB sýnýfý yazýlacak
+- IO sýnýfýnda dosya okurken stream'i kapatmadýk bu ne kadar problem olabilir araþtýralým.
+	- Diðer kütüphanelere (apache commons ve guava) bakalým.
+- Yeni read ile eski read'i test edelim ve hýz farkýndan emin olalým.
+	- readLines ve readWords metodlarý da encoding problemi verebilir, kontrol edip düzeltelim.
+	- IO metodlarýný linux'ta da test edelim.
+	- readLines ve readWords metodlarýný da hýz açýsýndan yeni yaklaþým ile yazmamýz gerekebilir.		
+- Bu fark TCLIB'e ne kadar yansýdý araþtýralým.
+
+- String sýnýfý metodlarý yeterince test edilmedi???
+
+- Paketler için açýklama satýrlarý yazmamýz gerkiyor.
+
+- DB sýnýfýný da yazdýktan sonra 1.0 sürümü için hazýrýz demektir.
+
 
 ====== Done List ========

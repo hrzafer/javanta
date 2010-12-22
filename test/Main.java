@@ -3,7 +3,6 @@ import com.hrzafer.javanta.GUI;
 import com.hrzafer.javanta.IO;
 import com.hrzafer.javanta.STR;
 import java.io.File;
-import java.util.Locale;
 
 /*
  * To change this template, choose Tools | Templates
@@ -39,19 +38,33 @@ public class Main {
     }
 
     public static void testGUI(){
-
         GUI.messageBox("deneme", "Bu bir denemedir");
     }
 
     public static void testSTR(){
-        String str = IO.read("test.txt");
-        System.out.println(STR.toNonTurkishLowerCase(str));
-        
+        String str = STR.removeDuplicateSpaces("verip karşılığında      haftalık\n\ntemin ettiği fonlara ödediklneri faize çevrildi ve o da bugün ");
+        System.out.println(str);
+    }
+
+    public static void speedTest(){
+        int test_count = 100000;
+        for(int i=0; i<test_count;i++){
+            IO.read("test_UTF8.txt");
+            //System.out.println(".");
+        }
     }
 
     public static void main(String[] args) {
 
-        testSTR();
+          //speedTest();
+
+            String str = IO.read("test_UTF8.txt");
+            IO.write("test_UTF8.txt", str.toUpperCase());
+
+
+//        System.out.println(IO.read2("test_UTF8.txt"));
+//        System.out.println(IO.read2("test_ISO.txt","ISO-8859-9"));
+//        System.out.println(IO.read2("test_ANSI.txt"));
     }
 
 }
