@@ -47,4 +47,8 @@ public class GUI {
     public static void messageBox(String message, String title) {
         JOptionPane.showConfirmDialog(null, message, title, JOptionPane.PLAIN_MESSAGE);
     }
+
+    public static int confirmBox(String message, String title) {
+        return JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+    }
 }
