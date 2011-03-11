@@ -1,4 +1,5 @@
 ====== To Do list ======= 27.10.2010
+- if (IO.Exists(strFilename)
 
 - IO sýnýfýnda dosya okurken stream'i kapatmadýk bu ne kadar problem olabilir araþtýralým.
 	- Diðer kütüphanelere (apache commons ve guava) bakalým.
@@ -13,6 +14,12 @@
 - Paketler için açýklama satýrlarý yazmamýz gerkiyor.
 
 - DB sýnýfýný da yazdýktan sonra 1.0 sürümü için hazýrýz demektir.
+
+- 1.0 sürümü ile birlikte - uyarý, ben sorumlu deðilim gibi birþeyler eklenmeli kodlara -
+
+- IO metodlarýna güzel javadoc yazalým, encoding örneðini anlatan ve kullaným örnekleri sunan javadoc'lar
+
+- ileride java doclara blog'da ilgili makalenin link'ini verebiliriz.
 
 
 ====== Done List ========

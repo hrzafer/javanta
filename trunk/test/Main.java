@@ -1,8 +1,13 @@
 
+import com.hrzafer.javanta.DB;
 import com.hrzafer.javanta.GUI;
 import com.hrzafer.javanta.IO;
 import com.hrzafer.javanta.STR;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this template, choose Tools | Templates
@@ -56,15 +61,24 @@ public class Main {
 
     public static void main(String[] args) {
 
-          //speedTest();
+        //speedTest();
+        //System.out.println(IO.read("test_UTF8.txt"));
+        //System.out.println(IO.read("test_ISO.txt",IO.ISO_TR));
+        //System.out.println(IO.readLines("test_UTF8.txt"));
+        //System.out.println(IO.readLines("test_ISO.txt",IO.ISO_TR));
+        //System.out.println(IO.readWords("test_UTF8.txt"));
+        //System.out.println(IO.readWords("test_ISO.txt",IO.ISO_TR));
 
-            String str = IO.read("test_UTF8.txt");
-            IO.write("test_UTF8.txt", str.toUpperCase());
+        ResultSet rs = DB.executeQuery("SELECT * FROM `admin`");
+        try {
+            rs.next();
+            System.out.println(rs.getString("username"));
+            rs.next();
+            System.out.println(rs.getString("username"));
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-
-//        System.out.println(IO.read2("test_UTF8.txt"));
-//        System.out.println(IO.read2("test_ISO.txt","ISO-8859-9"));
-//        System.out.println(IO.read2("test_ANSI.txt"));
     }
 
 }
