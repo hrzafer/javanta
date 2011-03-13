@@ -4,6 +4,8 @@
  */
 package com.hrzafer.javanta;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 /**
  *
  * @author Administrator
@@ -45,6 +47,15 @@ public class STR {
     public static String removeDuplicateSpaces(String str) {
         return str.replaceAll(" +", " ");
     }
+    
+    public static String removeParantheses(String str){
+        
+        return str.replaceAll("(\\(|\\))", "");
+        
+        
+        
+    }
+    
 
     /**
      * Bir String'deki tüm whitespace (boşluk, tab, newline) karakterleri siler
