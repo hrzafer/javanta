@@ -6,7 +6,8 @@
 - Yeni read ile eski read'i test edelim ve hýz farkýndan emin olalým.
 	- readLines ve readWords metodlarý da encoding problemi verebilir, kontrol edip düzeltelim.
 	- IO metodlarýný linux'ta da test edelim.
-	- readLines ve readWords metodlarýný da hýz açýsýndan yeni yaklaþým ile yazmamýz gerekebilir.		
+	- readLines ve readWords metodlarýný da hýz açýsýndan yeni yaklaþým ile yazmamýz gerekebilir.
+	
 - Bu fark TCLIB'e ne kadar yansýdý araþtýralým.
 
 - String sýnýfý metodlarý yeterince test edilmedi???

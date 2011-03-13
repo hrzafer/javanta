@@ -33,6 +33,15 @@ public class IO {
     public static final String UTF_8 = "UTF-8";
     /** ISO Türkçe karakter kodu - "ISO-8859-9"*/
     public static final String ISO_TR = "ISO-8859-9";
+    
+    /**
+     * Bir dosyanın belirtilen adreste olup olmadığını döndürür
+     * Ör: IO.exists("dosyalarım/dosyam.txt");     
+     */
+    public static boolean exists(String file){
+        boolean exists = (new File(file)).exists();
+        return exists;
+    }
 
     /**deneme*/
     /**
