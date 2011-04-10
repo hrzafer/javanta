@@ -4,8 +4,6 @@
  */
 package com.hrzafer.javanta;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  *
  * @author Administrator
@@ -49,14 +47,9 @@ public class STR {
     }
     
     public static String removeParantheses(String str){
-        
         return str.replaceAll("(\\(|\\))", "");
-        
-        
-        
     }
     
-
     /**
      * Bir String'deki tüm whitespace (boşluk, tab, newline) karakterleri siler
      * Ör: removeDuplicateSpaces("üs   satır\nalt satır") ifadesi "üssatıraltsatır" String'ini döndürür.
