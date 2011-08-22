@@ -2,12 +2,8 @@ package com.hrzafer.javanta;
 
 import java.math.BigInteger;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
+ * Bu sınıf temel Matematik işlemleri için gerekli bazı metodlar içerir.
  * @author hrzafer
  */
 public class MAT {

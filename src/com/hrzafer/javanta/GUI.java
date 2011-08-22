@@ -11,7 +11,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
+ * Bu sınıf temel Kullanıcı Arayüzü işlemleri için gerekli bir takım metodlar içerir.
  * @author hrzafer
  */
 public class GUI {
@@ -48,6 +48,9 @@ public class GUI {
         JOptionPane.showConfirmDialog(null, message, title, JOptionPane.PLAIN_MESSAGE);
     }
 
+    /*
+     * Ekranda Evet ve Hayır butonları olan bir Onaylama Kutusu Gösterir
+     */
     public static int confirmBox(String message, String title) {
         return JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
     }

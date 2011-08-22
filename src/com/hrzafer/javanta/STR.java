@@ -1,12 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hrzafer.javanta;
 
 /**
- *
- * @author Administrator
+ * Bu sınıf her zaman ihtiyaç duyulabilecek bir takım String işlemlerini gerçekleştiren metodları içerir.
+ * @author hrzafer
  */
 public class STR {
 
@@ -45,7 +41,10 @@ public class STR {
     public static String removeDuplicateSpaces(String str) {
         return str.replaceAll(" +", " ");
     }
-    
+
+    /**
+     * Bir String'deki tüm parantezleri yani '(' ve ')' karakterlerini siler.
+     */
     public static String removeParantheses(String str){
         return str.replaceAll("(\\(|\\))", "");
     }
@@ -57,4 +56,14 @@ public class STR {
     public static String removeAllSpaces(String str) {
         return str.replaceAll("\\s", "");
     }
+
+
+    /**
+     * Bu fonksiyon ileride muhtemelen kaldırılacak.
+     */
+    public static String escapeSquareBrackets(String str) {
+        return str.replaceAll("\\[", "\\\\[").replaceAll("\\]", "\\\\]");
+    }
+
+
 }

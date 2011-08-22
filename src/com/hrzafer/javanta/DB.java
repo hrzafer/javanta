@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.Properties;
 
 /**
- * Bu sınıf temel database işlemleri için tasarlanmıştır.
+ * Bu sınıf temel veritabanı işlemleri için tasarlanmıştır.
  * @author hrzafer
  */
 public class DB {
@@ -27,7 +27,7 @@ public class DB {
     }
 
     /**
-     * Opens a new connection and returns it
+     * Yeni bir veritabanı bağlantısı açar ve Connection nesnesi olarak döndürür.
      * @return
      */
     private static Connection getNewConnection() {
@@ -52,7 +52,7 @@ public class DB {
     }
 
     /**
-     * Creates a  new Statement object to be able to execute SQL
+     * SQL sorgularını çalıştırabilmek için yeni bir Statement nesnesi döndürür.
      * @return
      */
     private static Statement getNewStatement() {
@@ -71,9 +71,7 @@ public class DB {
     }
 
     /**
-     * Executes the sql query and returns the resultset
-     * @param sqlQuery
-     * @return
+     * String olarak verilen SQL sorgusunu çalıştırır ve sonucu ResultSet nesnesi olarak döndürür.
      */
     public static ResultSet executeQuery(String sqlQuery) {
         ResultSet rs;
@@ -87,9 +85,7 @@ public class DB {
     }
 
     /**
-     * Executes the insert/update/delete query and returns the number of affected rows.
-     * @param sqlUpdate
-     * @return
+     * insert/update/delete sorgularını çalıştırı ve etkilenen satırların sayısını döndürür.
      */
     public static int executeUpdate(String sqlUpdate) {
 
@@ -103,9 +99,7 @@ public class DB {
     }
 
     /**
-     * Checks if a transaction exists
-     * @return
-     * @throws SQLException
+     * Veritabanı bağlantısının bir Transaction'ı olup olmadığını kontrol eder.
      */
     public static Boolean IsTransactionExist() throws SQLException {
         if (getConnection().getAutoCommit() == true) {
@@ -116,8 +110,7 @@ public class DB {
     }
 
     /**
-     * Begins a transaction
-     * @throws SQLException
+     * Veritabanı bağlantısı için bir transaction başlatır
      */
     public static void BeginTransaction() {
         try {
@@ -133,7 +126,6 @@ public class DB {
 
     /**
      * Commits a transaction
-     * @throws SQLException
      */
     public static void CommitTransaction() {
         try {
