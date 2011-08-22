@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- *
  * Dosya işlemleri sınıfı
  * Yazar: Harun Reşit Zafer - hrzafer@gmail.com hrzafer.com
  *
