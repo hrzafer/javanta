@@ -5,7 +5,6 @@ import com.hrzafer.javanta.IO;
 import com.hrzafer.javanta.STR;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
