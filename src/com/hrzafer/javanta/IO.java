@@ -18,6 +18,7 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 /**
@@ -218,6 +219,20 @@ public class IO {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+        }
+    }
+    
+    public static Properties readProperties(String filepath){
+        InputStream in = null;
+        try {
+            Properties properties = new Properties();
+            in = IO.class.getResourceAsStream (filepath);
+            properties.load(in);
+            in.close();
+            return properties;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new RuntimeException("Properties file ("+ filepath +") can not be read!!!" );
         }
     }
 }
