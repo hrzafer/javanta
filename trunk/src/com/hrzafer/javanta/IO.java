@@ -222,6 +222,34 @@ public class IO {
         }
     }
     
+     /**
+     * Bir dosyayı okuyup bütünüyle string olarak döndürür.
+     * Türkçe karakter içeren ANSI biçiminde dosyalar için: read("beni_oku.txt", "ISO-8859-9") şeklinde çağırılması tavsiye edilir
+     * Kaynak: http://stackoverflow.com/questions/326390/how-to-create-a-java-string-from-the-contents-of-a-file/326440#326440
+     */
+    public static String readResource(String resourcePath) {
+        // No real need to close the BufferedReader/InputStreamReader
+        // as they're only wrapping the stream
+        InputStream stream = null;
+        try {
+            stream = IO.class.getResourceAsStream (resourcePath);
+            Reader reader = new BufferedReader(new InputStreamReader(stream, Charset.forName(UTF_8)));
+            StringBuilder builder = new StringBuilder();
+            char[] buffer = new char[BUFFER];
+            int read;
+            while ((read = reader.read(buffer, 0, buffer.length)) > 0) {
+                builder.append(buffer, 0, read);
+            }
+            return builder.toString();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            close(stream);
+        }
+    }
+    
+    
+    
     public static Properties readProperties(String filepath){
         InputStream in = null;
         try {
