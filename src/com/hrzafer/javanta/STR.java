@@ -65,5 +65,9 @@ public class STR {
         return str.replaceAll("\\[", "\\\\[").replaceAll("\\]", "\\\\]");
     }
 
+    public static boolean isNullOrEmpty(String str) {
+        return str == null || str.isEmpty();
+    }
 
 }
+
