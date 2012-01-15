@@ -1,9 +1,6 @@
 package com.hrzafer.javanta;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.*;
-import java.util.Properties;
 
 /**
  * Bu sınıf temel veritabanı işlemleri için tasarlanmıştır.
@@ -13,13 +10,23 @@ public class DB {
 
     private static Connection conn = null;
     private static Statement statement = null;
-    private static Properties dbConfig = loadConfig("src/javanta.properties");;
-    private static String DBurl = dbConfig.getProperty("DB.url");
-    private static String DBusername = dbConfig.getProperty("DB.username");
-    private static String DBpassword = dbConfig.getProperty("DB.password");
+    private static String url;
+    private static String username;
+    private static String password;
 
-    private static Connection getConnection() {
+    public static void setUrl(String DBurl) {
+        DB.url = DBurl;
+    }
 
+    public static void setUsername(String DBusername) {
+        DB.username = DBusername;
+    }
+
+    public static void setPassword(String DBpassword) {
+        DB.password = DBpassword;
+    }
+    
+    private static Connection getConnection() {     
         if (conn == null) {
             conn = getNewConnection();
         }
@@ -33,20 +40,8 @@ public class DB {
     private static Connection getNewConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();            
-            return DriverManager.getConnection(DBurl, DBusername, DBpassword);
+            return DriverManager.getConnection(url, username, password);
         } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private static Properties loadConfig(String propsFile) {
-        Properties properties = new Properties();
-        try {
-            FileInputStream fis = new FileInputStream(propsFile);
-            properties.load(fis);
-            fis.close();
-            return properties;
-        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }

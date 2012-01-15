@@ -222,14 +222,11 @@ public class IO {
         }
     }
     
-     /**
-     * Bir dosyayı okuyup bütünüyle string olarak döndürür.
-     * Türkçe karakter içeren ANSI biçiminde dosyalar için: read("beni_oku.txt", "ISO-8859-9") şeklinde çağırılması tavsiye edilir
-     * Kaynak: http://stackoverflow.com/questions/326390/how-to-create-a-java-string-from-the-contents-of-a-file/326440#326440
+    
+    /***
+     * Projeye resource olarak eklenmiş bir metin dosyasını okuyup string olarak döndürür.
      */
     public static String readResource(String resourcePath) {
-        // No real need to close the BufferedReader/InputStreamReader
-        // as they're only wrapping the stream
         InputStream stream = null;
         try {
             stream = IO.class.getResourceAsStream (resourcePath);
@@ -248,8 +245,10 @@ public class IO {
         }
     }
     
-    
-    
+    /**
+     * Projedeki bir properties dosyasını okur ve Properties olarak döndürür<br>
+     <br>Örnek: IO.readProperties("/com/hrzafer/javanta/resources/test.properties");
+     */
     public static Properties readProperties(String filepath){
         InputStream in = null;
         try {
