@@ -65,9 +65,35 @@ public class STR {
         return str.replaceAll("\\[", "\\\\[").replaceAll("\\]", "\\\\]");
     }
 
+    /**
+     * Bir String'in null veya boş olması halinde true değerini döndürür.
+     */
     public static boolean isNullOrEmpty(String str) {
         return str == null || str.isEmpty();
     }
-
+    
+    public static String escapeHtml(String str){
+        str = str.replace("ç", "&#231;");
+        str = str.replace("Ç", "&#199;");
+        str = str.replace("ı", "&#305;");
+        str = str.replace("İ", "&#304;");
+        str = str.replace("ğ", "&#287;");
+        str = str.replace("Ğ", "&#286;");
+        str = str.replace("ö", "&#246;");
+        str = str.replace("Ö", "&#214;");
+        str = str.replace("ş", "&#351;");
+        str = str.replace("Ş", "&#350;");
+        str = str.replace("ü", "&#252;");
+        str = str.replace("Ü", "&#220;");
+        return str;
+    }
+    
+    public static String addDoubleQuote(String str){
+        return "\"" + str +"\"";
+    }
+    
+    public static void main(String[] args) throws Exception {
+        
+    }
 }
 
