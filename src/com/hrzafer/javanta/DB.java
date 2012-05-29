@@ -1,32 +1,31 @@
 package com.hrzafer.javanta;
 
 import java.sql.*;
+import java.util.Properties;
 
 /**
  * Bu sınıf temel veritabanı işlemleri için tasarlanmıştır.
+ * 
+ * Projenize db.properties isimli bir properties dosyası ekleyip
+ * bağlantı değerlerinizi bu dosyaya yazmanız gerekir.
+ * 
  * @author hrzafer
  */
 public class DB {
 
     private static Connection conn = null;
     private static Statement statement = null;
-    private static String url;
-    private static String username;
-    private static String password;
-
-    public static void setUrl(String DBurl) {
-        DB.url = DBurl;
-    }
-
-    public static void setUsername(String DBusername) {
-        DB.username = DBusername;
-    }
-
-    public static void setPassword(String DBpassword) {
-        DB.password = DBpassword;
-    }
+    private static final Properties properties = IO.readProperties("db.properties");
+    private static String url = properties.getProperty("DB.url");
+    private static String name = properties.getProperty("DB.name");
+    private static String driver = properties.getProperty("DB.driver");
+    private static String charset = properties.getProperty("DB.charset");
+    private static String username = properties.getProperty("DB.username");
+    private static String password = properties.getProperty("DB.password");
     
-    private static Connection getConnection() {     
+
+    private static Connection openConnection() {
+
         if (conn == null) {
             conn = getNewConnection();
         }
@@ -39,8 +38,9 @@ public class DB {
      */
     private static Connection getNewConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();            
-            return DriverManager.getConnection(url, username, password);
+            Class.forName(driver).newInstance();            
+            System.out.println(url + name + charset);
+            return DriverManager.getConnection(url + name + charset, username, password);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -52,7 +52,7 @@ public class DB {
      */
     private static Statement getNewStatement() {
         try {
-            return getConnection().createStatement();
+            return openConnection().createStatement();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -97,7 +97,7 @@ public class DB {
      * Veritabanı bağlantısının bir Transaction'ı olup olmadığını kontrol eder.
      */
     public static Boolean IsTransactionExist() throws SQLException {
-        if (getConnection().getAutoCommit() == true) {
+        if (openConnection().getAutoCommit() == true) {
             return false;
         } else {
             return true;
@@ -110,7 +110,7 @@ public class DB {
     public static void BeginTransaction() {
         try {
             if (!IsTransactionExist()) {
-                getConnection().setAutoCommit(false);
+                openConnection().setAutoCommit(false);
             } else {
                 throw new SQLException("Nested Transaction is not allowed");
             }
@@ -125,11 +125,11 @@ public class DB {
     public static void CommitTransaction() {
         try {
             if (IsTransactionExist()) {
-                getConnection().commit();
+                openConnection().commit();
             } else {
                 throw new SQLException("Method is not allowed");
             }
-            getConnection().setAutoCommit(true);
+            openConnection().setAutoCommit(true);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
@@ -142,11 +142,11 @@ public class DB {
     public static void RollBackTransaction() {
         try {
             if (IsTransactionExist()) {
-                getConnection().rollback();
+                openConnection().rollback();
             } else {
                 throw new SQLException("Transaction rollback failed");
             }
-            getConnection().setAutoCommit(true);
+            openConnection().setAutoCommit(true);
             //Logger.Instance().LogItem("Rolling Back Completed");
         } catch (SQLException ex) {
             throw new RuntimeException(ex);

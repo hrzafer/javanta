@@ -1,18 +1,6 @@
 package com.hrzafer.javanta;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -35,7 +23,7 @@ public class IO {
     public static final String ISO_TR = "ISO-8859-9";
     
     /**
-     * Bir dosyanın belirtilen adreste olup olmadığını döndürür
+     * Bir dosyanın belirtilen adreste olup olmadığını döndürür<br/>
      * Ör: IO.exists("dosyalarım/dosyam.txt");     
      */
     public static boolean exists(String file){
@@ -82,7 +70,7 @@ public class IO {
     }
 
     /**
-     * Kaynak dosyayı (from) hedef dosyaya (to) kopyalar. Klasörler için kullanılmaz!
+     * Kaynak dosyayı (from) hedef dosyaya (to) kopyalar. Klasörler için kullanılmaz!<br/>
      * Ör: copy("beni_kopyala.txt", "bana_kopyala.txt");
      */
     public static void copy(String from, String to) {
@@ -92,7 +80,7 @@ public class IO {
     }
 
     /**
-     *Kaynak(source) dosyayı hedef(target) dosyaya kopyalar. Klasörler için kullanılmaz!
+     *Kaynak(source) dosyayı hedef(target) dosyaya kopyalar. Klasörler için kullanılmaz!<br/>
      * Ör: copy(new File("beni_kopyala.txt"), new File("bana_kopyala.txt"));
      */
     public static void copy(File source, File target) {
@@ -122,7 +110,7 @@ public class IO {
     }
 
     /**
-     * Bir String'i bütünüyle dosyaya yazar.
+     * Bir String'i bütünüyle dosyaya yazar.<br/>
      * Ör: write("bana_yaz.txt", "beni dosyaya yaz");
      */
     public static void write(String filePath, String content) {
@@ -148,7 +136,7 @@ public class IO {
      * Bir dosyadaki kelimeleri liste (ArrayList) olarak döndürür.
      */
     public static List<String> readWords(String filePath, String encoding) {
-        Scanner scanner = null;
+        Scanner scanner;
         List<String> words = new ArrayList<String>();
         scanner = new Scanner(read(filePath, encoding));
         while (scanner.hasNext()) {
@@ -169,7 +157,7 @@ public class IO {
      * Bir dosyadaki satırları liste (ArrayList) olarak döndürür.
      */
     public static List<String> readLines(String filePath, String encoding) {
-        Scanner scanner = null;
+        Scanner scanner;
         List<String> lines = new ArrayList<String>();
         scanner = new Scanner(read(filePath, encoding));
         while (scanner.hasNextLine()) {
@@ -182,7 +170,7 @@ public class IO {
     /**
      * Bir listedeki (ArrayList) satırları dosyaya yazar.
      */
-    public static void writeLines(String filePath, ArrayList<String> lines) {
+    public static void writeLines(String filePath, List<String> lines) {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(filePath));
@@ -222,11 +210,14 @@ public class IO {
         }
     }
     
-    
-    /***
-     * Projeye resource olarak eklenmiş bir metin dosyasını okuyup string olarak döndürür.
+     /**
+     * Bir dosyayı okuyup bütünüyle string olarak döndürür.
+     * Türkçe karakter içeren ANSI biçiminde dosyalar için: read("beni_oku.txt", "ISO-8859-9") şeklinde çağırılması tavsiye edilir
+     * Kaynak: http://stackoverflow.com/questions/326390/how-to-create-a-java-string-from-the-contents-of-a-file/326440#326440
      */
     public static String readResource(String resourcePath) {
+        // No real need to close the BufferedReader/InputStreamReader
+        // as they're only wrapping the stream
         InputStream stream = null;
         try {
             stream = IO.class.getResourceAsStream (resourcePath);
@@ -245,12 +236,10 @@ public class IO {
         }
     }
     
-    /**
-     * Projedeki bir properties dosyasını okur ve Properties olarak döndürür<br>
-     <br>Örnek: IO.readProperties("/com/hrzafer/javanta/resources/test.properties");
-     */
+    
+    
     public static Properties readProperties(String filepath){
-        InputStream in = null;
+        InputStream in;
         try {
             Properties properties = new Properties();
             in = IO.class.getResourceAsStream (filepath);
@@ -258,8 +247,8 @@ public class IO {
             in.close();
             return properties;
         } catch (Exception ex) {
-            ex.printStackTrace();
             throw new RuntimeException("Properties file ("+ filepath +") can not be read!!!" );
         }
     }
+   
 }

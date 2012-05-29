@@ -4,11 +4,7 @@
  */
 package com.hrzafer.javanta;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 /**
  * Bu sınıf temel Kullanıcı Arayüzü işlemleri için gerekli bir takım metodlar içerir.
