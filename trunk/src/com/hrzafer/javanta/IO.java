@@ -10,9 +10,8 @@ import java.util.Properties;
 import java.util.Scanner;
 
 /**
- * Dosya işlemleri sınıfı
- * Yazar: Harun Reşit Zafer - hrzafer@gmail.com hrzafer.com
- *
+ * Dosya işlemleri sınıfı. 
+ * @author Yazar: Harun Reşit Zafer - hrzafer@gmail.com hrzafer.com
  */
 public class IO {
 
@@ -21,17 +20,16 @@ public class IO {
     public static final String UTF_8 = "UTF-8";
     /** ISO Türkçe karakter kodu - "ISO-8859-9"*/
     public static final String ISO_TR = "ISO-8859-9";
-    
+
     /**
      * Bir dosyanın belirtilen adreste olup olmadığını döndürür<br/>
      * Ör: IO.exists("dosyalarım/dosyam.txt");     
      */
-    public static boolean exists(String file){
+    public static boolean exists(String file) {
         boolean exists = (new File(file)).exists();
         return exists;
     }
 
-    /**deneme*/
     /**
      * Bir dosyayı okuyup bütünüyle string olarak döndürür. 
      * Dosya Unicode biçiminde ise sorunsuz çalışır. Aksi halde Türkçe karakterlerde 
@@ -70,7 +68,8 @@ public class IO {
     }
 
     /**
-     * Kaynak dosyayı (from) hedef dosyaya (to) kopyalar. Klasörler için kullanılmaz!<br/>
+     * Kaynak dosyayı (from) hedef dosyaya (to) kopyalar. Klasörler için 
+     * kullanılmaz! <br/>
      * Ör: copy("beni_kopyala.txt", "bana_kopyala.txt");
      */
     public static void copy(String from, String to) {
@@ -80,7 +79,8 @@ public class IO {
     }
 
     /**
-     *Kaynak(source) dosyayı hedef(target) dosyaya kopyalar. Klasörler için kullanılmaz!<br/>
+     * Kaynak(source) dosyayı hedef(target) dosyaya kopyalar. Klasörler için 
+     * kullanılmaz!<br/>
      * Ör: copy(new File("beni_kopyala.txt"), new File("bana_kopyala.txt"));
      */
     public static void copy(File source, File target) {
@@ -126,7 +126,7 @@ public class IO {
     }
 
     /**
-     * Bir dosyadaki kelimeleri liste (ArrayList) olarak döndürür.
+     * Bir dosyadaki kelimeleri liste (List) olarak döndürür.
      */
     public static List<String> readWords(String filePath) {
         return readWords(filePath, UTF_8);
@@ -209,8 +209,8 @@ public class IO {
             }
         }
     }
-    
-     /**
+
+    /**
      * Bir dosyayı okuyup bütünüyle string olarak döndürür.
      * Türkçe karakter içeren ANSI biçiminde dosyalar için: read("beni_oku.txt", "ISO-8859-9") şeklinde çağırılması tavsiye edilir
      * Kaynak: http://stackoverflow.com/questions/326390/how-to-create-a-java-string-from-the-contents-of-a-file/326440#326440
@@ -220,7 +220,7 @@ public class IO {
         // as they're only wrapping the stream
         InputStream stream = null;
         try {
-            stream = IO.class.getResourceAsStream (resourcePath);
+            stream = IO.class.getResourceAsStream(resourcePath);
             Reader reader = new BufferedReader(new InputStreamReader(stream, Charset.forName(UTF_8)));
             StringBuilder builder = new StringBuilder();
             char[] buffer = new char[BUFFER];
@@ -235,20 +235,24 @@ public class IO {
             close(stream);
         }
     }
-    
-    
-    
-    public static Properties readProperties(String filepath){
+
+    /**
+     * *.properties uzantılı özellik dosyalarını okuyup, Properties nesneni 
+     * olarak döndürür. Dosyanın paketler içerisindeki tam konumu verilmelidir. 
+     * Mesela db.properties dosyası default pakette ise /db.properties olarak,
+     * com.hrzafer.resources gibi bir konumda ise 
+     * /com/hrzafer/resources/db.properties olarak.
+     */
+    public static Properties readProperties(String filepath) {
         InputStream in;
         try {
             Properties properties = new Properties();
-            in = IO.class.getResourceAsStream (filepath);
+            in = IO.class.getResourceAsStream(filepath);
             properties.load(in);
             in.close();
             return properties;
         } catch (Exception ex) {
-            throw new RuntimeException("Properties file ("+ filepath +") can not be read!!!" );
+            throw new RuntimeException("Properties file (" + filepath + ") can not be read!!!", ex);
         }
     }
-   
 }
