@@ -1,49 +1,14 @@
-<<<<<<< .mine
-====== To Do list ======= 27.10.2010
+- TÃ¼m sÄ±nÄ±flar iÃ§in Makaleleri yaz.
 
-- IO sýnýfýnda dosya okurken stream'i kapatmadýk bu ne kadar problem olabilir araþtýralým.
-	- Diðer kütüphanelere (apache commons ve guava) bakalým.
+- IO sÄ±nÄ±fÄ±nda dosya okurken stream'i kapatmadÄ±k bu ne kadar problem olabilir araÅŸtÄ±ralÄ±m.
+	- IO sÄ±nÄ±fÄ±na getWords ve getLines iÃ§in token'larÄ± delimiter kararterler ile birlikte dÃ¶ndÃ¼ren 
+	versiyonlarÄ± da yazmamÄ±z gerekiyor.
 
-- Yeni read ile eski read'i test edelim ve hýz farkýndan emin olalým.
-	- readLines ve readWords metodlarý da encoding problemi verebilir, kontrol edip düzeltelim.
-	- IO metodlarýný linux'ta da test edelim.
-	- readLines ve readWords metodlarýný da hýz açýsýndan yeni yaklaþým ile yazmamýz gerekebilir.
-	
-- String sýnýfý metodlarý yeterince test edilmedi???
-	- Unit-test yazalým
-
-- Paketler için açýklama satýrlarý yazmamýz gerkiyor.
-
-- DB sýnýfýný singleton yerine aç-kapa þeklinde tasarlayalým.
-
-- GUI sýnýfýna mytableModel eklenerek, database table gibi bir olay yapýlabilir
-
-=======
-1 ) Diðer sayfalarýn yapýlmasý
-2 ) Validation probleminin halledilmesi
-3 ) Arayüzün düzeltilmesi
+- Yeni read ile eski read'i test edelim ve hÄ±z farkÄ±ndan emin olalÄ±m.
+	- readLines ve readWords metodlarÄ± da encoding problemi verebilir, kontrol edip dÃ¼zeltelim.
+	- IO metodlarÄ±nÄ± linux'ta da test edelim.
+	- readLines ve readWords metodlarÄ±nÄ± da hÄ±z aÃ§Ä±sÄ±ndan yeni yaklaÅŸÄ±m ile yazmamÄ±z gerekebilir.
 
 
-= Önemli Notlar (Hatýrlatmalar)
-	- Bir cümlenin bir çok türevi olmasý morfolojiden ve morfolojik çözümleyiciden kaynaklanan bir sorundur.
-	- Burada doðru olan türevi elle seçebiliriz.
-	- Doðru olan türeve ait belirsizlikler ise bizim sorunumuz.
-	- Yine de Geçerlilik kurallarý yanlýþ türevleri elemede bir yere kadar yardýmcý oluyor.
-	NP -> adj kuralý belirsizliklere yol açan önemli kuralardan ancak þimdilik bir çaresi yok.
-		"soðuk geldi", "güzel budur" her sýfat isim gibi kullanýlabilir.
-	- Çoðul ekleri de epey belirsizliðe yol açýyor. 
-		- Kuvvetlerndirme edatlarý (de/da, dahi, bile) konusuna hiç girmedik.
-	
 
-= Savunma sonrasý yapýlacaklar
-	
-	- Web arayüzünün hazýrlanmasý
-	- Diðer diller için bir user-guide hazýrlanmasý
 
-= Future Work
-	- Mesele öncelikle iyi bir morfolojik çözümleyici ve bu çözümleyici ile birlikte çalýþan 
-	ve de istatistiksel veri de kullanabilen iyi bir POS tagger.
-	- Bu ikisi kelimeleri ve ikileme, deyim gibi kelime gruplarýný tam çözümlenmiþ ve POS'u belirlenmiþ olarak 
-	CFG'ye ilettiklerinde (ya da baþka bir sisteme) CFG çok daha az sayýda belirsiz parseTree oluþturacaktýr.
-	Bu durumda muhtemelen Kýsýtlama kurallarýna da çok az durumda gerek duyulacaktýr.
->>>>>>> .r29

@@ -1,14 +1,16 @@
 package com.hrzafer.javanta;
 
 /**
- * Bu sınıf her zaman ihtiyaç duyulabilecek bir takım String işlemlerini gerçekleştiren metodları içerir.
- * @author hrzafer
+ * Bu sınıf her zaman ihtiyaç duyulabilecek bir takım String işlemlerini 
+ * gerçekleştiren metodları içerir. İhtiyaca göre genişletilebilir.
+ * @author hrzafer.com
  */
 public class STR {
 
     /**
-     * Bir string'deki standart ASCII olmayan karakterleri (ç,ı,ğ,ö,ş,ü,İ, vb.) ASCII eşdeğerleri ile değiştirir.
-     * Ör: toNonTurkish("türkçe") metodu "turkce" string'ini döndürecektir.
+     * Bir string'deki standart ASCII olmayan karakterleri (ç,ı,ğ,ö,ş,ü,İ, 
+     * vb. Türkçe karakterleri) ASCII eşdeğerleri ile değiştirir.<br/>
+     * Mesela toNonTurkish("türkçe") metodu "turkce" string'ini döndürecektir.
      */
     public static String toNonTurkish(String str) {
         str = str.replace("ç", "c");
@@ -28,41 +30,45 @@ public class STR {
 
     /**
      * Bir stringdeki sesli harfleri siler.
-     * Ör: removeVowels("deneme") ifadesi "dnm" String'ini döndürür.
+     * Mesela removeVowels("deneme") ifadesi "dnm" String'ini döndürür.
      */
     public static String removeVowels(String str) {
         return str.replaceAll("[aeıouüiö]", "");
     }
 
     /**
-     * Bir String'de iki ve daha fazla sayıdaki yan yana boşlukları teke indirir.
-     * Ör: removeDuplicateSpaces("bu    bir      denemedir") ifadesi "bu bir denemedir" String'ini döndürür.
+     * Bir String'de iki ve daha fazla sayıdaki yan yana boşlukları teke 
+     * indirir.<br/>
+     * Mesela removeDuplicateSpaces("bu    bir      denemedir") ifadesi 
+     * "bu bir denemedir" String'ini döndürür.
      */
     public static String removeDuplicateSpaces(String str) {
         return str.replaceAll(" +", " ");
     }
 
     /**
-     * Bir String'deki tüm parantezleri yani '(' ve ')' karakterlerini siler.
+     * Bir String'deki tüm parantezleri yani '(' ve ')' karakterlerini siler.<br/>
+     * Mesela "(a)*(b+c)" ifadesi "a*b+c" ifadesine dönüşür.
      */
-    public static String removeParantheses(String str){
+    public static String removeParantheses(String str) {
         return str.replaceAll("(\\(|\\))", "");
     }
-    
-    /**
-     * Bir String'deki tüm whitespace (boşluk, tab, newline) karakterleri siler
-     * Ör: removeDuplicateSpaces("üs   satır\nalt satır") ifadesi "üssatıraltsatır" String'ini döndürür.
-     */
-    public static String removeAllSpaces(String str) {
-        return str.replaceAll("\\s", "");
-    }
-
 
     /**
-     * Bu fonksiyon ileride muhtemelen kaldırılacak.
+     * Düzenli ifadelerde (regex) '[' ve ']' karakterlerini '\[' '\]' şekline
+     * dönüştürür. 
      */
     public static String escapeSquareBrackets(String str) {
         return str.replaceAll("\\[", "\\\\[").replaceAll("\\]", "\\\\]");
+    }
+
+    /**
+     * Bir String'deki tüm whitespace (boşluk, tab, newline) karakterleri siler. <br/>
+     * Mesela removeAllSpaces("üs   satır\nalt satır") ifadesi "üssatıraltsatır"
+     * String'ini döndürür.
+     */
+    public static String removeAllSpaces(String str) {
+        return str.replaceAll("\\s", "");
     }
 
     /**
@@ -71,8 +77,13 @@ public class STR {
     public static boolean isNullOrEmpty(String str) {
         return str == null || str.isEmpty();
     }
-    
-    public static String escapeHtml(String str){
+
+    /**
+     * String'deki Türkçe karakterleri HTML kodları ile değiştirerek %100 HTML
+     * uyumlu hale getirir. Bu sayede karakter kodu ne olursa olsun Türkçe 
+     * karakterler doğru görüntülenir. 
+     */
+    public static String escapeHtml(String str) {
         str = str.replace("ç", "&#231;");
         str = str.replace("Ç", "&#199;");
         str = str.replace("ı", "&#305;");
@@ -87,13 +98,14 @@ public class STR {
         str = str.replace("Ü", "&#220;");
         return str;
     }
-    
-    public static String addDoubleQuote(String str){
-        return "\"" + str +"\"";
-    }
-    
-    public static void main(String[] args) throws Exception {
-        
+
+    /**
+     * Bir string'i çift tırnak içerisine almak için kullanılır.<br/>
+     * Mesela str isiminde bir String değişkeni çift tırnak içerisinde 
+     * almak için "\"" + str +"\"" yerine  STR.addDoubleQuote(str) yazmak daha
+     * kolaydır. Birincisinde hata yapma riski de oldukça yüksektir.
+     */
+    public static String addDoubleQuote(String str) {
+        return "\"" + str + "\"";
     }
 }
-

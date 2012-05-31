@@ -177,7 +177,7 @@ public class IOTest {
     @Test
     public void testReadProperties() {
         System.out.println("readProperties");
-        String filepath = "/com/hrzafer/javanta/resources/test.properties";
+        String filepath = "resources/test.properties";
         Properties expResult = new Properties();
         expResult.setProperty("this", "is a test");
         expResult.setProperty("bu", "çığöşü ve ÇİĞÖŞÜ");

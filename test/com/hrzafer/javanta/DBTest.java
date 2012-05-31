@@ -5,10 +5,9 @@
 package com.hrzafer.javanta;
 
 import java.sql.ResultSet;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import java.sql.SQLException;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
@@ -16,86 +15,21 @@ import static org.junit.Assert.*;
  */
 public class DBTest {
     
-    public DBTest() {
-    }
-  
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     /**
-     * Test of executeQuery method, of class DB.
+     * Kitap tablosu kullanılarak bağlantı ve verilerin doğru alınıp alınmadığı test ediliyor.
+     * Bu test fonksiyon üzerine sağ tıklayıp -> Run Focused Test seçilerek çalıştırılabilir.
      */
     @Test
-    public void testExecuteQuery() {
+    public void testExecuteQuery() throws SQLException {
         System.out.println("executeQuery");
-        String sqlQuery = "SELECT * FROM  kisiler";
-        ResultSet result = DB.executeQuery(sqlQuery);
+        String sqlQuery = "SELECT * FROM  kitap";
+        DB db = new DB("db.properties");
+        ResultSet result = db.executeQuery(sqlQuery);
         assertNotNull(result);
+        assertTrue(result.next());
+        assertEquals(result.getString(2), "Bir Diğer Veritabanı Kitabı");       
+        
         
     }
-
-    /**
-     * Test of executeUpdate method, of class DB.
-     */
-    @Test
-    public void testExecuteUpdate() {
-        System.out.println("executeUpdate");
-        String sqlUpdate = "";
-        int expResult = 0;
-        int result = DB.executeUpdate(sqlUpdate);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of IsTransactionExist method, of class DB.
-     */
-    @Test
-    public void testIsTransactionExist() throws Exception {
-        System.out.println("IsTransactionExist");
-        Boolean expResult = null;
-        Boolean result = DB.IsTransactionExist();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of BeginTransaction method, of class DB.
-     */
-    @Test
-    public void testBeginTransaction() {
-        System.out.println("BeginTransaction");
-        DB.BeginTransaction();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of CommitTransaction method, of class DB.
-     */
-    @Test
-    public void testCommitTransaction() {
-        System.out.println("CommitTransaction");
-        DB.CommitTransaction();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of RollBackTransaction method, of class DB.
-     */
-    @Test
-    public void testRollBackTransaction() {
-        System.out.println("RollBackTransaction");
-        DB.RollBackTransaction();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+   
 }

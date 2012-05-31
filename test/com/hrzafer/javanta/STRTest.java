@@ -19,12 +19,10 @@ public class STRTest {
     @Test
     public void testToNonTurkish() {
         System.out.println("toNonTurkish");
-        String str = "";
-        String expResult = "";
+        String str = "türkçe";
+        String expResult = "turkce";
         String result = STR.toNonTurkish(str);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -33,12 +31,10 @@ public class STRTest {
     @Test
     public void testRemoveVowels() {
         System.out.println("removeVowels");
-        String str = "";
-        String expResult = "";
+        String str = "deneme";
+        String expResult = "dnm";
         String result = STR.removeVowels(str);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result);       
     }
 
     /**
@@ -47,12 +43,10 @@ public class STRTest {
     @Test
     public void testRemoveDuplicateSpaces() {
         System.out.println("removeDuplicateSpaces");
-        String str = "";
-        String expResult = "";
+        String str = "bu    bir      denemedir";
+        String expResult = "bu bir denemedir";
         String result = STR.removeDuplicateSpaces(str);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result);        
     }
 
     /**
@@ -61,12 +55,10 @@ public class STRTest {
     @Test
     public void testRemoveParantheses() {
         System.out.println("removeParantheses");
-        String str = "";
-        String expResult = "";
+        String str = "(a)*(b+c)";
+        String expResult = "a*b+c";
         String result = STR.removeParantheses(str);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -75,12 +67,10 @@ public class STRTest {
     @Test
     public void testRemoveAllSpaces() {
         System.out.println("removeAllSpaces");
-        String str = "";
-        String expResult = "";
+        String str = "üs   satır\nalt satır";
+        String expResult = "üssatıraltsatır";
         String result = STR.removeAllSpaces(str);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -89,12 +79,11 @@ public class STRTest {
     @Test
     public void testEscapeSquareBrackets() {
         System.out.println("escapeSquareBrackets");
-        String str = "";
-        String expResult = "";
+        String str = "[deneme]";
+        String expResult = "\\[deneme\\]";
         String result = STR.escapeSquareBrackets(str);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -119,5 +108,31 @@ public class STRTest {
         assertEquals(expResult, result);
         
     }
+
+    /**
+     * Test of escapeHtml method, of class STR.
+     */
+    @Test
+    public void testEscapeHtml() {
+        System.out.println("escapeHtml");
+        String str = "Türkçe";
+        String expResult = "T&#252;rk&#231;e";
+        String result = STR.escapeHtml(str);
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of addDoubleQuote method, of class STR.
+     */
+    @Test
+    public void testAddDoubleQuote() {
+        System.out.println("addDoubleQuote");
+        String str = "deneme";
+        String expResult = "\"deneme\"";
+        String result = STR.addDoubleQuote(str);
+        assertEquals(expResult, result);
+    }
+
 }
 

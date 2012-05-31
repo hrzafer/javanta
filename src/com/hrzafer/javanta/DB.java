@@ -4,27 +4,53 @@ import java.sql.*;
 import java.util.Properties;
 
 /**
- * Bu sınıf temel veritabanı işlemleri için tasarlanmıştır.
+ * Bu sınıf temel veritabanı işlemleri için tasarlanmıştır.<br/>
+ * Bağlantı parametrelerini içeren aşağıdaki gibi .properties uzantılı<br/>
+ * bir dosyayı sınıfa constructor method ile sağlamanız gerekmektedir.<br/><br/>
+ * <i>db.properties:</i><br/><br/>
+ *  DB.url = jdbc:mysql://localhost:3306/<br/>
+ *  DB.name = hrzafer_kitap_01<br/>
+ *  DB.driver = com.mysql.jdbc.Driver<br/>
+ *  DB.charset = ?characterEncoding=UTF-8<br/>
+ *  DB.username = root<br/>
+ *  DB.password = gizli<br/>
+ * @author hrzafer.com 
  * 
- * Projenize db.properties isimli bir properties dosyası ekleyip
- * bağlantı değerlerinizi bu dosyaya yazmanız gerekir.
- * 
- * @author hrzafer
  */
 public class DB {
 
-    private static Connection conn = null;
-    private static Statement statement = null;
-    private static final Properties properties = IO.readProperties("db.properties");
-    private static String url = properties.getProperty("DB.url");
-    private static String name = properties.getProperty("DB.name");
-    private static String driver = properties.getProperty("DB.driver");
-    private static String charset = properties.getProperty("DB.charset");
-    private static String username = properties.getProperty("DB.username");
-    private static String password = properties.getProperty("DB.password");
-    
+    private Connection conn = null;
+    private Statement statement = null;
+    private final Properties properties;
+    private final String url;
+    private final String name;
+    private final String driver;
+    private final String charset;
+    private final String username;
+    private final String password;
 
-    private static Connection openConnection() {
+    /**
+     * Yeni bir Mysql veritabanı bağlantısı oluşturur. 
+     * @param propertiesFile bağlantı değerlerini içeren dosyanın tam paket konumu.
+     * Dosyanın paketler içerisindeki tam konumu verilmelidir. Mesela 
+     * db.properties dosyası default pakette ise "/db.properties" şeklinde,
+     * com.hrzafer.resources gibi bir konumda ise 
+     * "/com/hrzafer/resources/db.properties" şeklinde.
+     */
+    public DB(String propertiesFile) {
+        properties = IO.readProperties(propertiesFile);
+        url = properties.getProperty("DB.url");
+        name = properties.getProperty("DB.name");
+        driver = properties.getProperty("DB.driver");
+        charset = properties.getProperty("DB.charset");
+        username = properties.getProperty("DB.username");
+        password = properties.getProperty("DB.password");
+    }
+
+    /**
+     * Bağlantı varsa mevcut bağlantıyı döndürür. Yoksa yeni bağlantı açar.
+     */
+    private Connection getConnection() {
 
         if (conn == null) {
             conn = getNewConnection();
@@ -34,11 +60,10 @@ public class DB {
 
     /**
      * Yeni bir veritabanı bağlantısı açar ve Connection nesnesi olarak döndürür.
-     * @return
      */
-    private static Connection getNewConnection() {
+    private Connection getNewConnection() {
         try {
-            Class.forName(driver).newInstance();            
+            Class.forName(driver).newInstance();
             System.out.println(url + name + charset);
             return DriverManager.getConnection(url + name + charset, username, password);
         } catch (Exception ex) {
@@ -47,18 +72,9 @@ public class DB {
     }
 
     /**
-     * SQL sorgularını çalıştırabilmek için yeni bir Statement nesnesi döndürür.
-     * @return
+     * Statement varsa döndürür. Yoksa yeni Statement oluşturup onu döndürür.
      */
-    private static Statement getNewStatement() {
-        try {
-            return openConnection().createStatement();
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private static Statement getStatement() {
+    private Statement getStatement() {
         if (statement == null) {
             statement = getNewStatement();
         }
@@ -66,10 +82,22 @@ public class DB {
     }
 
     /**
-     * String olarak verilen SQL sorgusunu çalıştırır ve sonucu ResultSet nesnesi olarak döndürür.
+     * SQL sorgularını çalıştırabilmek için yeni bir Statement nesnesi döndürür.
      */
-    public static ResultSet executeQuery(String sqlQuery) {
-        ResultSet rs;
+    private Statement getNewStatement() {
+        try {
+            return getConnection().createStatement();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    /**
+     * String olarak verilen SQL Select sorgusunu çalıştırır ve sonucu ResultSet
+     * nesnesi olarak döndürür.
+     */
+    public ResultSet executeQuery(String sqlQuery) {
+
         Statement st = getStatement();
         try {
             st.execute(sqlQuery);
@@ -80,9 +108,10 @@ public class DB {
     }
 
     /**
-     * insert/update/delete sorgularını çalıştırı ve etkilenen satırların sayısını döndürür.
+     * insert/update/delete sorgularını çalıştırır ve sorgudan etkilenen
+     * satırların sayısını döndürür.
      */
-    public static int executeUpdate(String sqlUpdate) {
+    public int executeUpdate(String sqlUpdate) {
 
         Statement st = getStatement();
         try {
@@ -94,10 +123,11 @@ public class DB {
     }
 
     /**
-     * Veritabanı bağlantısının bir Transaction'ı olup olmadığını kontrol eder.
+     * Veritabanı bağlantısının o anda bir Çoklu işlem (Transaction)
+     * yürütmekte olup olmadığını döndürür.
      */
-    public static Boolean IsTransactionExist() throws SQLException {
-        if (openConnection().getAutoCommit() == true) {
+    public Boolean IsTransactionExist() throws SQLException {
+        if (getConnection().getAutoCommit() == true) {
             return false;
         } else {
             return true;
@@ -105,12 +135,12 @@ public class DB {
     }
 
     /**
-     * Veritabanı bağlantısı için bir transaction başlatır
+     * Veritabanı bağlantısı için bir Çoklu işlem ( transaction ) başlatır.
      */
-    public static void BeginTransaction() {
+    public void BeginTransaction() {
         try {
             if (!IsTransactionExist()) {
-                openConnection().setAutoCommit(false);
+                getConnection().setAutoCommit(false);
             } else {
                 throw new SQLException("Nested Transaction is not allowed");
             }
@@ -120,34 +150,34 @@ public class DB {
     }
 
     /**
-     * Commits a transaction
+     * Çoklu işlemin (Transaction) başarılı bir şekilde sona erdiğini bildirir.
      */
-    public static void CommitTransaction() {
+    public void CommitTransaction() {
         try {
             if (IsTransactionExist()) {
-                openConnection().commit();
+                getConnection().commit();
             } else {
                 throw new SQLException("Method is not allowed");
             }
-            openConnection().setAutoCommit(true);
+            getConnection().setAutoCommit(true);
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     /**
-     * Rolls back a transaction if it is failed
-     * @throws SQLException
+     * Çoklu işlemin (Transaction) başarısız olması durumunda o ana kadar
+     * yapılan işlem adımlarını geri alarak veritabanının bütünlüğünü korur.
      */
-    public static void RollBackTransaction() {
+    public void RollBackTransaction() {
         try {
             if (IsTransactionExist()) {
-                openConnection().rollback();
+                getConnection().rollback();
             } else {
                 throw new SQLException("Transaction rollback failed");
             }
-            openConnection().setAutoCommit(true);
-            //Logger.Instance().LogItem("Rolling Back Completed");
+            getConnection().setAutoCommit(true);
+
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
