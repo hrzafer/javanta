@@ -21,7 +21,7 @@
     </target>
 
 
-    <target name="package_for_release" depends="jar,javadoc, package-sources">
+    <target name="package_for_release" depends="jar, javadoc, package-sources">
         <mkdir dir="build/release"/>
         <copy file="${dist.jar}" todir="build/release/"/>
         <copy file="licence.txt" todir="build/release/"/>
