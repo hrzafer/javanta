@@ -3,6 +3,9 @@
 - IO sınıfında dosya okurken stream'i kapatmadık bu ne kadar problem olabilir araştıralım.
 	- IO sınıfına getWords ve getLines için token'ları delimiter kararterler ile birlikte döndüren 
 	versiyonları da yazmamız gerekiyor.
+	- .Net File sınıfını inceleyelim.
+	- Aynı şekilde bir String sınıfı var mı?
+	
 
 - Yeni read ile eski read'i test edelim ve hız farkından emin olalım.
 	- readLines ve readWords metodları da encoding problemi verebilir, kontrol edip düzeltelim.
@@ -11,4 +14,8 @@
 
 
 
-
+It talks to the database
+It communicates across the network
+It touches the file system
+It can't run at the same time as any of your other unit tests
+You have to do special things to your environment (such as editing config files) to run it.

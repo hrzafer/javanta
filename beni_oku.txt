@@ -1,0 +1,16 @@
+Javanta 0.8:  Copyright (c) 2012 Harun Reþit Zafer
+
+Javanta MIT lisansý altýnda yayýnlamakta olan açýk kaynak bir kütüphanedir. Ayrýntýlar için
+licence.txt (ingilizce) dosyasýna bakýnýz.
+
+Kullaným: http://www.hrzafer.com/java-kutuphaneleri-1-projenize-kutuphane-eklemek
+
+Proje sayfasý: http://code.google.com/p/javanta/
+
+Belgeler: http://www.hrzafer.com/javanta
+
+Ýletiþim: harunzafer@gmail.com
+
+Faydalý olmasý dileðiyle
+
+31 Mayýs 2012 - Harun Reþit Zafer 
