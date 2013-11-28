@@ -51,7 +51,6 @@ public class DB {
      * Bağlantı varsa mevcut bağlantıyı döndürür. Yoksa yeni bağlantı açar.
      */
     private Connection getConnection() {
-
         if (conn == null) {
             conn = getNewConnection();
         }
