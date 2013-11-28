@@ -3,19 +3,26 @@
 - IO sınıfında dosya okurken stream'i kapatmadık bu ne kadar problem olabilir araştıralım.
 	- IO sınıfına getWords ve getLines için token'ları delimiter kararterler ile birlikte döndüren 
 	versiyonları da yazmamız gerekiyor.
+	- readWords'u Str sınıfına alalım. IO sınıfını toparlayalım.	
 	- .Net File sınıfını inceleyelim.
 	- Aynı şekilde bir String sınıfı var mı?
 	
+- Bir dosyadaki kelimeler. Sadece kelimeler, Nasıl???
+	- Delim karakterler verilerek tabiki. Yani puncuation bizim problemimiz değil!!!
+	
+- Bir dosyadaki kelimeler ve noktalama işaretleri.
+	- Yine delim karakterler verilerek.
+	
+- Sorun standart dışı karakterler ve istemediğimiz karakterler ve 2., 3. gibi durumlar???
+	- Örneğin Ms Word karakterlerini normal karakterlere çevirim eyle-beyle etmek istersek ne edeceğuk?
+	- Önce string olarak alalım. 
+	- Sonra replaceAll yapalım. Belki daha hızlı bir yolu bulunabilir.
+	- Sonra da tokenization yapalım.
+
+- Bir dosyadaki satırlar.
+- Bir dosyadaki satırlar ve new_line karakterleri.
 
 - Yeni read ile eski read'i test edelim ve hız farkından emin olalım.
 	- readLines ve readWords metodları da encoding problemi verebilir, kontrol edip düzeltelim.
 	- IO metodlarını linux'ta da test edelim.
 	- readLines ve readWords metodlarını da hız açısından yeni yaklaşım ile yazmamız gerekebilir.
-
-
-
-It talks to the database
-It communicates across the network
-It touches the file system
-It can't run at the same time as any of your other unit tests
-You have to do special things to your environment (such as editing config files) to run it.

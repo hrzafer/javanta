@@ -10,83 +10,86 @@ import java.text.DecimalFormat;
  */
 public class Timer {
 
-    private static long START;
-    private static long END;
-    private static boolean IS_RUNNING;
-    private static double MILLION = 1000000.0;
-    private static double BILLION = 1000000000.0;
+    private long _startTime;
+    private long _endTime;
+    private boolean _isRunning;
+    private final double MILLION = 1000000.0;
+    private final double BILLION = 1000000000.0;
 
     /**
      * Kronometreyi başlatır. Eğer zaten başlamış durumda ise RunTimeException hatası atar.
+     * @return 
      */
-    public static void start() {
-        if (!IS_RUNNING) {
+    public Timer start() {
+        if (!_isRunning) {
             startTimer();
         } else {
             throw new RuntimeException("Hata: Kronometre (Timer) zaten başlatılmış durumda!!!\n");
         }
+        return this;
     }
 
-    private static void startTimer() {
-        START = System.nanoTime();
-        IS_RUNNING = true;
+    private void startTimer() {
+        _startTime = System.nanoTime();
+        _isRunning = true;
     }
 
     /**
      * Kronometreyi durdurur. Eğer zaten başlamamış ise RunTimeException hatası atar.
      */
-    public static void stop() {
-        if (IS_RUNNING) {
+    public void stop() {
+        if (_isRunning) {
             stopTimer();
         } else {
             throw new RuntimeException("Hata: Kronometre (Timer) başlatılmadı!!!\n");
         }
     }
 
-    private static void stopTimer() {
-        END = System.nanoTime();
-        IS_RUNNING = false;
+    private void stopTimer() {
+        _endTime = System.nanoTime();
+        _isRunning = false;
     }
 
     /**
-     * Timer.start() ile Timer.stop() arasında geçen süreyi nanosaniye olarak döndürür.
+     * start() ile stop() arasında geçen süreyi nanosaniye olarak döndürür.
      */
-    public static long getElapsedTime() {
-        if (!IS_RUNNING) {
-            return END - START;
+    public long getElapsedTime() {
+        if (!_isRunning) {
+            return _endTime - _startTime;
         } else {
             throw new RuntimeException("Hata: Kronometre (Timer) durdurulmadı!!!\n");
         }
     }
 
     /**
-     * Timer.start() ile Timer.stop() arasında geçen süreyi milisaniye cinsinden döndürür.
+     * start() ile stop() arasında geçen süreyi milisaniye cinsinden döndürür.
+     * @return 
      */
-    public static double getElapsedMilliseconds() {
+    public double getElapsedMilliseconds() {
         double seconds = (double) getElapsedTime() / MILLION;
         return seconds;
     }
 
     /**
-     * Timer.start() ile Timer.stop() arasında geçen süreyi saniye cinsinden döndürür.
+     * start() ile stop() arasında geçen süreyi saniye cinsinden döndürür.
+     * @return 
      */
-    public static double getElapsedSeconds() {
+    public double getElapsedSeconds() {
         double seconds = (double) getElapsedTime() / BILLION;
         return seconds;
     }
+    
+    public String getElapsedSecondsAsFormattedString(){
+        double number = getElapsedSeconds();
+        DecimalFormat df = new DecimalFormat("0.00####");
+        df.setRoundingMode(RoundingMode.UP);
+        return df.format(number);
+    }
 
-//    public static void main(String args[]) {
-//        Timer.start();
-//        System.out.println("deneme");
-//        Timer.stop();
-//        double seconds = Timer.getElapsedSeconds();
-//
-//        double number = 10.0/3;
-//        System.out.println(number);
-//        DecimalFormat df = new DecimalFormat("0.00####");
-//        System.out.println(df.format(number));
-//        df.setRoundingMode(RoundingMode.UP);
-//
-//        System.out.println("Geçen süre " + df.format(seconds) + " saniyedir" + Timer.getElapsedMilliseconds() + " " + seconds);
-//    }
+    public static void main(String args[]) {
+        Timer timer = new Timer().start();
+        System.out.println("Bu biraz zaman alacak");
+        timer.stop();
+        System.out.println(timer.getElapsedSecondsAsFormattedString());
+    }
 }

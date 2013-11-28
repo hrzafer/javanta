@@ -4,8 +4,8 @@
  */
 package com.hrzafer.javanta;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
@@ -117,7 +117,7 @@ public class STRTest {
         System.out.println("escapeHtml");
         String str = "Türkçe";
         String expResult = "T&#252;rk&#231;e";
-        String result = STR.escapeHtml(str);
+        String result = STR.convertTurkishCharsToHtmlCode(str);
         assertEquals(expResult, result);
         
     }
